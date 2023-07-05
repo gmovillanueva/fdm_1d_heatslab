@@ -44,16 +44,28 @@ def numerical():
 
         # Building Matrix A
         if (i > 0) and (i < ints):
-            # Would build the internal cells
+            matrix_a[i, i - 1] = -aw
+            matrix_a[i, i] = ac
+            matrix_a[i, i + 1] = -ae
+            vector_b[i] = 0
         elif i == 0:
-            # Would build the left boundary conditions
+            ac = ae + st * vp
+            matrix_a[i, i] = ac
+            matrix_a[i, i + 1] = -ae
+            vector_b[i] = q_value
         elif i == ints:
-            # Would build the right boundary conditions
+            ac = aw + st * vn + arc * 0.5 / d_valueR
+            matrix_a[i, i - 1] = -aw
+            matrix_a[i, i] = ac
+            vector_b[i] = 0
 
     # Solving Ax = b
-    thermal_flux = numpy.linalg.solve(matrix_a, vector_b)
+    num_flux = numpy.linalg.solve(matrix_a, vector_b)
 
     return
+
+
+
 
 
 # =============================================================================
@@ -73,6 +85,22 @@ def numerical():
 # timeSteps     := Time Steps
 # fileSave      := Save to file
 # =============================================================================
+
+radius = 1
+# radius = 10
+ints = 1000
+q_value = 1
+src_value = 0
+sigma_a = 1
+sigma_s = 0
+#sigma_a = 0
+#sigma_s = 10
+sigma_t = sigma_a + sigma_s
+st = sigma_a + sigma_s
+dr = radius/ints
+xlist = numpy.arange(0.0, radius, dr)
+rlist = numpy.linspace(0.0, radius, ints + 1)
+pi = math.pi
 
 kFuel = input("Fuel Thermal Conductivity (W/mK) = ")      
 pFuel = input("Fuel Density (kg/m^3) = ")        

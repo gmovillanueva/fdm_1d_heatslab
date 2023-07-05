@@ -46,9 +46,12 @@ def numerical():
         if (i > 0) and (i < ints):
             # Would build the internal cells
         elif i == 0:
-            # Would build the left boundary conditions
+            # Would build the 
         elif i == ints:
-            # Would build the right boundary conditions
+            ac = aw + st * vn + arc * 0.5 / d_valueR
+            matrix_a[i, i - 1] = -aw
+            matrix_a[i, i] = ac
+            vector_b[i] = 0
 
     # Solving Ax = b
     thermal_flux = numpy.linalg.solve(matrix_a, vector_b)

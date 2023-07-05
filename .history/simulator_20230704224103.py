@@ -44,11 +44,17 @@ def numerical():
 
         # Building Matrix A
         if (i > 0) and (i < ints):
-            # Would build the internal cells
+            # Would 
         elif i == 0:
-            # Would build the left boundary conditions
+            ac = ae + st * vp
+            matrix_a[i, i] = ac
+            matrix_a[i, i + 1] = -ae
+            vector_b[i] = q_value
         elif i == ints:
-            # Would build the right boundary conditions
+            ac = aw + st * vn + arc * 0.5 / d_valueR
+            matrix_a[i, i - 1] = -aw
+            matrix_a[i, i] = ac
+            vector_b[i] = 0
 
     # Solving Ax = b
     thermal_flux = numpy.linalg.solve(matrix_a, vector_b)

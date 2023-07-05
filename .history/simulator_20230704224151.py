@@ -48,7 +48,10 @@ def numerical():
         elif i == 0:
             # Would build the left boundary conditions
         elif i == ints:
-            # Would build the right boundary conditions
+            ac = aw + st * vn + arc * 0.5 / d_valueR
+            matrix_a[i, i - 1] = -aw
+            matrix_a[i, i] = ac
+            vector_b[i] = 0
 
     # Solving Ax = b
     thermal_flux = numpy.linalg.solve(matrix_a, vector_b)
